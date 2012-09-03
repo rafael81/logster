@@ -1,0 +1,10 @@
+2012-08-23 11:14:35,931 DEBUG [SQLParser.java:73] parse elapse time == 52
+2012-08-23 11:20:35,931 DEBUG [SQLParser.java:73] parse elapse time == 100
+2012-08-23 11:25:35,931 DEBUG [SQLParser.java:73] parse elapse time == 200
+2012-08-23 11:30:35,931 DEBUG [SQLParser.java:73] parse elapse time == 300
+2012-08-23 11:40:35,931 DEBUG [SQLParser.java:73] parse elapse time == 400
+2012-08-23 11:59:35,931 DEBUG [SQLParser.java:73] parse elapse time == 500
+2012-08-23 12:20:35,931 DEBUG [SQLParser.java:73] parse elapse time == 600
+2012-08-23 13:20:35,931 DEBUG [SQLParser.java:73] parse elapse time == 700
+2012-08-23 13:30:35,931 DEBUG [SQLParser.java:73] parse elapse time == 800
+2012-08-23 14:30:35,931 DEBUG [SQLParser.java:73] parse elapse time == 900

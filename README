@@ -64,6 +64,6 @@ Options:
                         location /var/run
   -o OUTPUT, --output=OUTPUT
                         Where to send metrics (can specify multiple times).
-                        Choices are 'graphite', 'ganglia', or 'stdout'.
+                        Choices are 'cloudwatch', 'graphite', 'ganglia', or 'stdout'.
   -d, --dry-run         Parse the log file but send stats to standard output.
   -D, --debug           Provide more verbose logging for debugging.

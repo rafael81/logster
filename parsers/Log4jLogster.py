@@ -37,28 +37,12 @@ class Log4jLogster(LogsterParser):
     def __init__(self, option_string=None):
         '''Initialize any data structures or variables needed for keeping track
         of the tasty bits we find in the log we are parsing.'''
-        
-        if option_string:
-            options = option_string.split(' ')
-        else:
-            options = []
-        
-        optparser = optparse.OptionParser()
-        optparser.add_option('--log-levels', '-l', dest='levels', default='WARN,ERROR,FATAL',
-                            help='Comma-separated list of log levels to track: (default: "WARN,ERROR,FATAL")')
-        
-        opts, args = optparser.parse_args(args=options)
-            
-        self.levels = opts.levels.split(',')
-        
-        for level in self.levels:
-            # Track counts from 0 for each log level
-            setattr(self, level, 0)
-        
+
+        setattr(self, "metrics", dict())
+
         # Regular expression for matching lines we are interested in, and capturing
-        # fields from the line (in this case, a log level such as WARN, ERROR, or FATAL).
-        self.reg = re.compile('[0-9-_:\.]+ (?P<log_level>%s)' % ('|'.join(self.levels)) )
-        
+        # fields from the line (in this case, a log level such as timestamp, log_level, api, elapse_time).
+        self.reg = re.compile('(?P<timestamp>[0-9-_:,\s\.]+) (?P<log_level>\w+) \[(?P<api>.+?java:\w+)\].+?\s== (?P<elapse_time>\d+$)')
         
     def parse_line(self, line):
         '''This function should digest the contents of one line at a time, updating
@@ -69,24 +53,29 @@ class Log4jLogster(LogsterParser):
             regMatch = self.reg.match(line)
             
             if regMatch:
+                print line
                 linebits = regMatch.groupdict()
-                log_level = linebits['log_level']
-                
-                if log_level in self.levels:
-                    current_val = getattr(self, log_level)
-                    setattr(self, log_level, current_val+1)
-                    
+                api = linebits['api']
+                elapse_time = linebits['elapse_time']
+                timestamp = linebits['timestamp']
+
+                if api in self.metrics.keys():
+                    self.metrics[api].append({timestamp:elapse_time})
+                else:
+                    self.metrics[api] = list()
+                    self.metrics[api].append({timestamp:elapse_time})
+                                   
             else:
                 raise LogsterParsingException, "regmatch failed to match"
                 
         except Exception, e:
             raise LogsterParsingException, "regmatch or contents failed with %s" % e
             
-            
+
     def get_state(self, duration):
         '''Run any necessary calculations on the data collected from the logs
         and return a list of metric objects.'''
         self.duration = duration
         
-        metrics = [MetricObject(level, (getattr(self, level) / self.duration)) for level in self.levels]
+        metrics = [MetricObject(metric, elapse_time) for metric, elapse_time in self.metrics.iteritems()]
         return metrics

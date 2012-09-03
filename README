@@ -30,9 +30,10 @@ Usage
 !!! You must set amazon aws_key, aws_secret_key values on logster file.
 !!! And you must change Amazon CloudWatch region on logster_helper.py to base_url = "monitoring.eu-west-1.amazonaws.com"
 
-You can test logster from the command line. There are one sample parsers: Log4jLogster, which generates stats from a log4j.log. The --dry-run option will allow you to see the metrics being generated on stdout rather than sending them to Amazon CloudWatch.
+You can test logster from the command line. There are one sample parsers: Log4jLogster, which generates stats from a log4j.log. The --dry-run option will allow you to see the metrics being generated on stdout rather than sending them to Amazon CloudWatch. Metric Name is SQLParser.java:73. Metric Value is elpase time. Metric Unit is Milliseconds.
 
   $ logster --dry-run --output=cloudwatch Log4jLogster log4j.log instance-id
+  
 
 Additional usage details can be found with the -h option:
 

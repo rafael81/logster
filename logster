@@ -207,7 +207,7 @@ def submit_cloudwatch(metrics, options):
             for timestamp, elapse_time in map_data.iteritems():
                 data = Log4jData(metric.name, timestamp, elapse_time)
                 cw = CloudWatch(aws_key, aws_secret_key)                
-                #cw.putData(data)
+                cw.putData(data)
                 if options.dry_run:
                     print '    ' + timestamp  + ':' + elapse_time
 

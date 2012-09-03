@@ -63,6 +63,7 @@ class Log4jData:
       self.timestamp = timestamp
       self.elapse_time = elapse_time
 
+## taken from http://www.thatsgeeky.com/2012/01/autoscaling-with-custom-metrics/
 class CloudWatch:
     def __init__(self, key, secret_key):
         self.key = os.getenv('AWS_ACCESS_KEY_ID', key)

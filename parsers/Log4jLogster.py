@@ -42,7 +42,7 @@ class Log4jLogster(LogsterParser):
 
         # Regular expression for matching lines we are interested in, and capturing
         # fields from the line (in this case, a log level such as timestamp, log_level, api, elapse_time).
-        self.reg = re.compile('(?P<timestamp>[0-9-_:,\s\.]+) (?P<log_level>\w+) \[(?P<api>.+?java:\w+)\].+?\s== (?P<elapse_time>\d+$)')
+        self.reg = re.compile('(?P<timestamp>[0-9-_:,\s\.]+)\s+(?P<log_level>\w+)\s+\[(?P<api>.+?java:\w+)\].+?\s+==\s+(?P<elapse_time>\d+$)')
         
     def parse_line(self, line):
         '''This function should digest the contents of one line at a time, updating
